@@ -1,4 +1,7 @@
-<?php include('./partials/header.php');
+<?php
+session_start();
+
+include('./partials/header.php');
 
 $bannerTitle = "Data produk";
 include('./components/banner.php');
@@ -31,11 +34,11 @@ include('./components/banner.php');
                         <th scope="row" class="text-center"><?= $no++; ?></th>
                         <td class="text-center"><?= $row['name']; ?></td>
                         <td class="text-center">Rp. <?= $row['price']; ?></td>
-                        <td class="text-center"><img src="<?= $row['image']; ?>" width="50"></td>
+                        <td class="text-center"><img src=".<?= $row['image']; ?>" width="50"></td>
                         <td class="text-center">
                             <a class="btn btn-sm btn-success" href="<?= $row['image']; ?>" target="_blank" download>unduh</a>
 
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ModalEdit<?= $no;?>">Edit</button>
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ModalEdit<?= $no; ?>">Edit</button>
                             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalHapus<?= $no ?>">hapus</button>
                         </td>
                     </tr>
@@ -46,6 +49,10 @@ include('./components/banner.php');
             </tbody>
         </table>
     </div>
-    <a class="btn btn-primary btn-sm" href="./index.php">back to home</a>
+    <?php if ($_SESSION['role'] == 'admin') { ?>
+        <a class="btn btn-primary btn-sm" href="./admin/index.php">back to home</a>
+    <?php } else { ?>
+        <a class="btn btn-primary btn-sm" href="./index.php">back to home</a>
+    <?php } ?>
 </div>
 <?php include('./partials/footer.php'); ?>
