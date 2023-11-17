@@ -12,14 +12,16 @@ if(isset($_POST['submit'])) {
 
     $randomFilename = time().'-'.md5(rand()).'-'.$image;
 
-    $uploadPath = $_SERVER['DOCUMENT_ROOT'].'/upload/'.$randomFilename;
+    $uploadPath = '../upload/'.$randomFilename;
 
     $upload = move_uploaded_file($tempImage,$uploadPath);
 
     if($upload) {
         mysqli_query($db_connect,"INSERT INTO products (name,price,image)
                     VALUES ('$name','$price','/upload/$randomFilename')");
-        echo "berhasil upload";
+                    
+        echo "<script>alert('data berhasil ditambahkan');</script>";
+        header('location: ../show.php');
     } else {
         echo "gagal upload";
     }
